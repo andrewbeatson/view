@@ -13,7 +13,7 @@ declare var google: any;
 @Component({
   selector: 'app-restdetails',
   templateUrl: './restdetails.component.html',
-  styleUrls: ['./restdetails.component.scss']
+  styleUrls: ['./restdetails.component.scss'],
 })
 export class RestdetailsComponent implements OnInit {
   @ViewChild('placesRef', { static: false }) placesRef: GooglePlaceDirective;
@@ -66,7 +66,7 @@ export class RestdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(data => {
+    this.route.queryParams.subscribe((data) => {
       console.log('data=>', data);
       this.new = data.register === 'true' ? true : false;
       console.log(this.new);
@@ -79,17 +79,16 @@ export class RestdetailsComponent implements OnInit {
           { item_id: 'Mexican', item_text: 'Mexican' },
           { item_id: 'Chinese', item_text: 'Chinese' },
           { item_id: 'Indian', item_text: 'Indian' },
-          { item_id: 'Japanese', item_text: 'Japanese' }
+          { item_id: 'Japanese', item_text: 'Japanese' },
         ];
-        this.selectedItems = [
-        ];
+        this.selectedItems = [];
         this.dropdownSettings = {
           singleSelection: false,
           idField: 'item_id',
           textField: 'item_text',
           selectAllText: 'Select All',
           unSelectAllText: 'UnSelect All',
-          allowSearchFilter: true
+          allowSearchFilter: true,
         };
       }
     });
@@ -101,7 +100,7 @@ export class RestdetailsComponent implements OnInit {
     console.log(items);
   }
   getVenue() {
-    this.api.getProfile(this.id).then(data => {
+    this.api.getProfile(this.id).then((data) => {
       console.log('profile', data);
       if (data) {
         this.email = data.email;
@@ -110,80 +109,59 @@ export class RestdetailsComponent implements OnInit {
         this.lname = data.lname;
       }
     });
-    this.api.getVenueDetails(this.id).then((data) => {
-      console.log('data', data);
-      if (data) {
-        this.haveData = true;
-        this.name = data.name;
-        this.address = data.address;
-        this.coverImage = data.cover;
-        this.descritions = data.descritions;
-        this.image1 = data.images[0];
-        this.image2 = data.images[1];
-        this.image3 = data.images[2];
-        this.image4 = data.images[3];
-        this.image5 = data.images[4];
-        this.image6 = data.images[5];
-        this.latitude = data.lat;
-        this.longitude = data.lng;
-        this.time = data.time;
-        this.dishPrice = data.dishPrice;
-        this.cusine = data.cusine;
-        this.openTime = data.openTime;
-        this.city = data.city;
-        this.closeTime = data.closeTime;
-        this.phone = data.phone;
-        this.cusine.forEach(element => {
-          this.selectedItems.push({
-            item_id: element,
-            item_text: element
+    this.api
+      .getVenueDetails(this.id)
+      .then((data) => {
+        console.log('data', data);
+        if (data) {
+          this.haveData = true;
+          this.name = data.name;
+          this.address = data.address;
+          this.coverImage = data.cover;
+          this.descritions = data.descritions;
+          this.image1 = data.images[0];
+          this.image2 = data.images[1];
+          this.image3 = data.images[2];
+          this.image4 = data.images[3];
+          this.image5 = data.images[4];
+          this.image6 = data.images[5];
+          this.latitude = data.lat;
+          this.longitude = data.lng;
+          this.time = data.time;
+          this.dishPrice = data.dishPrice;
+          this.cusine = data.cusine;
+          this.openTime = data.openTime;
+          this.city = data.city;
+          this.closeTime = data.closeTime;
+          this.phone = data.phone;
+          this.cusine.forEach((element) => {
+            this.selectedItems.push({
+              item_id: element,
+              item_text: element,
+            });
           });
-        });
-        this.dropdownList = [
-          { item_id: 'Italian', item_text: 'Italian' },
-          { item_id: 'Mexican', item_text: 'Mexican' },
-          { item_id: 'Chinese', item_text: 'Chinese' },
-          { item_id: 'Indian', item_text: 'Indian' },
-          { item_id: 'Japanese', item_text: 'Japanese' }
-        ];
-        this.dropdownSettings = {
-          singleSelection: false,
-          idField: 'item_id',
-          textField: 'item_text',
-          selectAllText: 'Select All',
-          unSelectAllText: 'UnSelect All',
-          allowSearchFilter: true
-        };
-        console.log(this.selectedItems);
-        this.chMod.detectChanges();
-      }
-    }).catch(error => {
-      console.log(error);
-    });
-    this.api.getRestOrders(this.id).then(data => {
-      console.log('order->', data);
-      this.totalOrders = [];
-      if (data && data.length) {
-        this.totalOrders = data;
-        this.totalSales = 0;
-        data.forEach(element => {
-          element.order = JSON.parse(element.order);
-          this.totalSales = this.totalSales + parseFloat(element.total);
-        });
-        this.totalSales = this.totalSales.toFixed(2);
-        console.log('sales total -->', this.totalSales);
-      }
-    }).catch(error => {
-      console.log(error);
-    });
-    this.api.getRestReview(this.id).then((data) => {
-      console.log(data);
-      if (data && data.length) {
-        this.reviews = data;
-      }
-    }).catch(error => {
-      console.log(error);
-    });
+          this.dropdownList = [
+            { item_id: 'Italian', item_text: 'Italian' },
+            { item_id: 'Mexican', item_text: 'Mexican' },
+            { item_id: 'Chinese', item_text: 'Chinese' },
+            { item_id: 'Indian', item_text: 'Indian' },
+            { item_id: 'Japanese', item_text: 'Japanese' },
+          ];
+          this.dropdownSettings = {
+            singleSelection: false,
+            idField: 'item_id',
+            textField: 'item_text',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            allowSearchFilter: true,
+          };
+          console.log(this.selectedItems);
+          this.chMod.detectChanges();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getImage(cover) {
@@ -194,12 +172,15 @@ export class RestdetailsComponent implements OnInit {
   }
 
   getCity() {
-    this.api.getCities().then(data => {
-      console.log(data);
-      this.cities = data;
-    }).catch(error => {
-      console.log(error);
-    });
+    this.api
+      .getCities()
+      .then((data) => {
+        console.log(data);
+        this.cities = data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   public handleAddressChange(address: Address) {
@@ -212,15 +193,35 @@ export class RestdetailsComponent implements OnInit {
 
   updateVenue() {
     this.cusine = [];
-    this.selectedItems.forEach(element => {
+    this.selectedItems.forEach((element) => {
       this.cusine.push(element.item_id);
     });
-    console.log(this.name, this.address, this.descritions, this.dishPrice, this.time,
-      this.cusine, this.openTime, this.closeTime);
-    if (this.name === '' || this.address === '' || this.descritions === '' || this.dishPrice === '' || this.time === '' ||
-      !this.cusine || this.phone === ''
-      || !this.phone || !this.cusine.length || this.openTime === '' || this.closeTime === '' || !this.dishPrice
-      || !this.openTime || !this.closeTime) {
+    console.log(
+      this.name,
+      this.address,
+      this.descritions,
+      this.dishPrice,
+      this.time,
+      this.cusine,
+      this.openTime,
+      this.closeTime
+    );
+    if (
+      this.name === '' ||
+      this.address === '' ||
+      this.descritions === '' ||
+      this.dishPrice === '' ||
+      this.time === '' ||
+      !this.cusine ||
+      this.phone === '' ||
+      !this.phone ||
+      !this.cusine.length ||
+      this.openTime === '' ||
+      this.closeTime === '' ||
+      !this.dishPrice ||
+      !this.openTime ||
+      !this.closeTime
+    ) {
       this.error(this.api.translate('All Fields are required'));
       return false;
     }
@@ -240,7 +241,7 @@ export class RestdetailsComponent implements OnInit {
     // if (!this.latitude || !this.longitude || this.latitude === '' || this.longitude === '') {
     // this.error(this.api.translate('Please select valid address'));
     // return false;
-    const geocoder = new google.maps.Geocoder;
+    const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: this.address }, (results, status) => {
       console.log(results, status);
       if (status === 'OK' && results && results.length) {
@@ -281,37 +282,63 @@ export class RestdetailsComponent implements OnInit {
         this.image3 ? this.image3 : '',
         this.image4 ? this.image4 : '',
         this.image5 ? this.image5 : '',
-        this.image6 ? this.image6 : ''
+        this.image6 ? this.image6 : '',
       ],
     };
     console.log('param', param);
     this.spinner.show();
-    this.api.updateVenue(param).then((data) => {
-      this.spinner.hide();
-      console.log(data);
-      this.api.alerts(this.api.translate('Success'), this.api.translate('Restaurant updated successfully'), 'success');
-      this.navCtrl.back();
-    }, error => {
-      this.spinner.hide();
-      console.log(error);
-      this.error(error);
-    }).catch(error => {
-      this.spinner.hide();
-      console.log(error);
-      this.error(error);
-    });
+    this.api
+      .updateVenue(param)
+      .then(
+        (data) => {
+          this.spinner.hide();
+          console.log(data);
+          this.api.alerts(
+            this.api.translate('Success'),
+            this.api.translate('Restaurant updated successfully'),
+            'success'
+          );
+          this.navCtrl.back();
+        },
+        (error) => {
+          this.spinner.hide();
+          console.log(error);
+          this.error(error);
+        }
+      )
+      .catch((error) => {
+        this.spinner.hide();
+        console.log(error);
+        this.error(error);
+      });
   }
 
   create() {
     this.cusine = [];
-    this.selectedItems.forEach(element => {
+    this.selectedItems.forEach((element) => {
       this.cusine.push(element.item_id);
     });
 
-    if (this.email === '' || this.fname === '' || this.lname === '' || this.phone === '' || this.password === ''
-      || this.name === '' || this.address === '' || this.descritions === '' || this.dishPrice === '' || this.time === ''
-      || this.city === '' || !this.city || !this.cusine || !this.cusine.length || this.openTime === '' || this.closeTime === '' ||
-      !this.openTime || !this.closeTime) {
+    if (
+      this.email === '' ||
+      this.fname === '' ||
+      this.lname === '' ||
+      this.phone === '' ||
+      this.password === '' ||
+      this.name === '' ||
+      this.address === '' ||
+      this.descritions === '' ||
+      this.dishPrice === '' ||
+      this.time === '' ||
+      this.city === '' ||
+      !this.city ||
+      !this.cusine ||
+      !this.cusine.length ||
+      this.openTime === '' ||
+      this.closeTime === '' ||
+      !this.openTime ||
+      !this.closeTime
+    ) {
       this.error(this.api.translate('All Fields are required'));
       return false;
     }
@@ -319,7 +346,7 @@ export class RestdetailsComponent implements OnInit {
     //   this.error(this.api.translate('Please select valid address'));
     //   return false;
     // }
-    const geocoder = new google.maps.Geocoder;
+    const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: this.address }, (results, status) => {
       console.log(results, status);
       if (status === 'OK' && results && results.length) {
@@ -333,7 +360,7 @@ export class RestdetailsComponent implements OnInit {
     });
 
     const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
-    if (!(emailfilter.test(this.email))) {
+    if (!emailfilter.test(this.email)) {
       this.error(this.api.translate('Please enter valid email'));
       return false;
     }
@@ -355,84 +382,122 @@ export class RestdetailsComponent implements OnInit {
       return false;
     }
     this.spinner.show();
-    this.api.checkEmail(this.email).then((datas: any) => {
-      if (!datas.length) {
-        this.api.register(this.email, this.password, this.fname, this.lname).then((data) => {
-          if (data && data.uid) {
-            const param = {
-              uid: data.uid,
-              email: this.email,
-              name: this.name,
-              address: this.address,
-              descritions: this.descritions,
-              lat: this.latitude,
-              lng: this.longitude,
-              cover: this.coverImage,
-              dishPrice: this.dishPrice,
-              time: this.time,
-              ratting: 0,
-              cusine: this.cusine,
-              totalRatting: 0,
-              openTime: this.openTime,
-              isClose: true,
-              phone: this.phone,
-              status: 'open',
-              closeTime: this.closeTime,
-              city: this.city,
-              images: [
-                this.image1 ? this.image1 : '',
-                this.image2 ? this.image2 : '',
-                this.image3 ? this.image3 : '',
-                this.image4 ? this.image4 : '',
-                this.image5 ? this.image5 : '',
-                this.image6 ? this.image6 : ''
-              ],
-            };
-            console.log('param', param);
-            this.api.createVenue(param).then((data) => {
-              this.spinner.hide();
-              console.log(data);
-              this.api.alerts(this.api.translate('Success'), this.api.translate('Restaurant added successfully'), 'success');
-              this.api.sendNotification('Checkout New Restaurant ' + this.name, 'New Restaunrant Added').subscribe((data) => {
-                console.log(data);
-                this.success(this.api.translate('Notications sent'));
-              }, error => {
+    this.api
+      .checkEmail(this.email)
+      .then(
+        (datas: any) => {
+          if (!datas.length) {
+            this.api
+              .register(this.email, this.password, this.fname, this.lname)
+              .then(
+                (data) => {
+                  if (data && data.uid) {
+                    const param = {
+                      uid: data.uid,
+                      email: this.email,
+                      name: this.name,
+                      address: this.address,
+                      descritions: this.descritions,
+                      lat: this.latitude,
+                      lng: this.longitude,
+                      cover: this.coverImage,
+                      dishPrice: this.dishPrice,
+                      time: this.time,
+                      ratting: 0,
+                      cusine: this.cusine,
+                      totalRatting: 0,
+                      openTime: this.openTime,
+                      isClose: true,
+                      phone: this.phone,
+                      status: 'open',
+                      closeTime: this.closeTime,
+                      city: this.city,
+                      images: [
+                        this.image1 ? this.image1 : '',
+                        this.image2 ? this.image2 : '',
+                        this.image3 ? this.image3 : '',
+                        this.image4 ? this.image4 : '',
+                        this.image5 ? this.image5 : '',
+                        this.image6 ? this.image6 : '',
+                      ],
+                    };
+                    console.log('param', param);
+                    this.api
+                      .createVenue(param)
+                      .then(
+                        (data) => {
+                          this.spinner.hide();
+                          console.log(data);
+                          this.api.alerts(
+                            this.api.translate('Success'),
+                            this.api.translate('Restaurant added successfully'),
+                            'success'
+                          );
+                          this.api
+                            .sendNotification(
+                              'Checkout New Restaurant ' + this.name,
+                              'New Restaunrant Added'
+                            )
+                            .subscribe(
+                              (data) => {
+                                console.log(data);
+                                this.success(
+                                  this.api.translate('Notications sent')
+                                );
+                              },
+                              (error) => {
+                                console.log(error);
+                                this.error(
+                                  this.api.translate('Something went wrong')
+                                );
+                              }
+                            );
+                          this.navCtrl.back();
+                        },
+                        (error) => {
+                          this.spinner.hide();
+                          console.log(error);
+                          this.error(error);
+                        }
+                      )
+                      .catch((error) => {
+                        this.spinner.hide();
+                        console.log(error);
+                        this.error(error);
+                      });
+                  }
+                },
+                (error) => {
+                  console.log(error);
+                  this.spinner.hide();
+                  this.error(`${error}`);
+                }
+              )
+              .catch((error) => {
                 console.log(error);
-                this.error(this.api.translate('Something went wrong'));
+                this.spinner.hide();
+                this.error(`${error}`);
               });
-              this.navCtrl.back();
-            }, error => {
-              this.spinner.hide();
-              console.log(error);
-              this.error(error);
-            }).catch(error => {
-              this.spinner.hide();
-              console.log(error);
-              this.error(error);
-            });
+          } else {
+            this.spinner.hide();
+            this.error(
+              this.api.translate(
+                'this email id is already register, please use another to login'
+              )
+            );
           }
-        }, error => {
+        },
+        (error) => {
           console.log(error);
           this.spinner.hide();
-          this.error(`${error}`);
-        }).catch(error => {
-          console.log(error);
-          this.spinner.hide();
-          this.error(`${error}`);
-        });
-      } else {
+          this.error(this.api.translate('Something went wrong'));
+        }
+      )
+      .catch((error) => {
+        console.log(error);
         this.spinner.hide();
-        this.error(this.api.translate('this email id is already register, please use another to login'));
-      }
-    }, error => {
-      console.log(error);
-      this.spinner.hide();
-      this.error(this.api.translate('Something went wrong'));
-    }).catch(error => {
-      console.log(error);
-      this.spinner.hide();
-      this.error(this.api.translate('Something went wrong'));
-    });
+        this.error(this.api.translate('Something went wrong'));
+      });
   }
 
   error(message) {
@@ -447,7 +512,7 @@ export class RestdetailsComponent implements OnInit {
       },
       onRemove: function (toast: ToastData) {
         console.log('Toast ' + toast.id + ' has been removed!');
-      }
+      },
     };
     // Add see all possible types in one shot
     this.toastyService.error(toastOptions);
@@ -464,14 +529,13 @@ export class RestdetailsComponent implements OnInit {
       },
       onRemove: function (toast: ToastData) {
         console.log('Toast ' + toast.id + ' has been removed!');
-      }
+      },
     };
     // Add see all possible types in one shot
     this.toastyService.success(toastOptions);
   }
 
   preview_banner(files) {
-
     console.log('fle', files);
     this.banner_to_upload = [];
     if (files.length === 0) {
@@ -488,9 +552,9 @@ export class RestdetailsComponent implements OnInit {
       const file1 = files[0];
       const storageRef = firebase.storage().ref('drivers' + '/' + file1.name);
       const task = storageRef.put(file1);
-      task.on('state_changed',
-        (snapshot: any) => {
-        },
+      task.on(
+        'state_changed',
+        (snapshot: any) => {},
         (error) => {
           this.spinner.hide();
           this.error(this.api.translate('Something went wrong'));
@@ -498,19 +562,20 @@ export class RestdetailsComponent implements OnInit {
           console.error(error);
         },
         () => {
-          storageRef.getDownloadURL().then((downloadURL) => {
-            console.log('download ur', downloadURL);
-            this.coverImage = downloadURL;
-            this.spinner.hide();
-          },
+          storageRef.getDownloadURL().then(
+            (downloadURL) => {
+              console.log('download ur', downloadURL);
+              this.coverImage = downloadURL;
+              this.spinner.hide();
+            },
             (error) => {
               this.spinner.hide();
               this.error(this.api.translate('Something went wrong'));
               console.error('upload rejected', error);
-            });
+            }
+          );
         }
       );
-
     } else {
       console.log('no');
     }

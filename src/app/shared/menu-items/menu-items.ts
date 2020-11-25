@@ -37,37 +37,31 @@ const MENUITEMS = [
         state: 'admin-dashboard',
         name: 'Dashboard',
         type: 'link',
-        icon: 'ti-home'
+        icon: 'ti-home',
       },
       {
         state: 'admin-cities',
         name: 'Available Cities',
         type: 'link',
-        icon: 'ti-location-pin'
+        icon: 'ti-location-pin',
       },
       {
         state: 'admin-restaurants',
         name: 'Restaurants',
         type: 'link',
-        icon: 'ti-notepad'
+        icon: 'ti-notepad',
       },
       {
         state: 'admin-users',
         name: 'Users',
         type: 'link',
-        icon: 'ti-user'
+        icon: 'ti-user',
       },
       {
         state: 'admin-drivers',
         name: 'Drivers',
         type: 'link',
-        icon: 'ti-truck'
-      },
-      {
-        state: 'admin-orders',
-        name: 'Orders',
-        type: 'link',
-        icon: 'ti-shopping-cart'
+        icon: 'ti-truck',
       },
     ],
   },
@@ -75,36 +69,18 @@ const MENUITEMS = [
     label: 'Manage',
     main: [
       {
-        state: 'admin-banners',
-        name: 'Banners',
-        type: 'link',
-        icon: 'ti-layout-list-large-image',
-      },
-      {
-        state: 'admin-coupons',
-        name: 'Coupons',
-        type: 'link',
-        icon: 'ti-medall'
-      },
-      {
         state: 'admin-notification',
         name: 'Notification',
         type: 'link',
-        icon: 'ti-bell'
+        icon: 'ti-bell',
       },
       {
         state: 'admin-chats',
         name: 'Support',
         type: 'link',
-        icon: 'ti-comments-smiley'
+        icon: 'ti-comments-smiley',
       },
-      {
-        state: 'admin-rest-stats',
-        name: 'Restaurant Stats',
-        type: 'link',
-        icon: 'ti-stats-up'
-      }
-    ]
+    ],
   },
   // {
   //   label: 'Forms',
