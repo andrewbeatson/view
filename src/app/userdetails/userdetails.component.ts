@@ -28,6 +28,7 @@ export class UserdetailsComponent implements OnInit {
   }
 
   ngOnInit() {}
+
   getProfile() {
     this.api
       .getMyProfile(this.id)
@@ -57,6 +58,7 @@ export class UserdetailsComponent implements OnInit {
         console.log(error);
       });
   }
+
   getAddress() {
     this.api
       .getMyAddress(this.id)

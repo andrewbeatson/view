@@ -1,7 +1,5 @@
 <ngx-spinner type="ball-pulse-sync" color="#e74c3c">
-  <p style="font-size: 20px; color: #e74c3c">
-    {{ 'Please wait...' | translate }}
-  </p>
+  <p style="font-size: 20px; color: #e74c3c">Please wait...</p>
 </ngx-spinner>
 
 <div class="row">
@@ -15,77 +13,77 @@
           }}
         </p>
         <h5>
-          <span *ngIf="new">{{ 'CREATE NEW' | translate }}</span>
-          <span *ngIf="!new">{{ 'Edit' | translate }}</span>
-          {{ 'Restaurant' | translate }}
+          <span *ngIf="new">CREATE NEW</span>
+          <span *ngIf="!new">Edit</span>
+          Restaurant
         </h5>
       </div>
       <div class="card-body reset-table p-t-0">
-        <h4 class="sub-title">{{ 'Owner Details' | translate }}</h4>
+        <h4 class="sub-title">Owner Details</h4>
         <div class="form-group row">
           <div class="col-sm-6">
-            <label>{{ 'First Name' | translate }}</label>
+            <label>First Name</label>
             <input
               type="text"
               [(ngModel)]="fname"
               class="form-control"
-              [placeholder]="('First Name' | translate) || '&nbsp;'"
+              placeholder="First Name"
             />
           </div>
           <div class="col-sm-6">
-            <label>{{ 'Last Name' | translate }}</label>
+            <label>Last Name</label>
             <input
               type="text"
               [(ngModel)]="lname"
               class="form-control"
-              [placeholder]="('Last Name' | translate) || '&nbsp;'"
+              placeholder="Last Name"
             />
           </div>
           <div class="col-sm-6">
-            <label>{{ 'Email' | translate }}</label>
+            <label>Email</label>
             <input
               type="email"
               [disabled]="!new"
               [(ngModel)]="email"
               class="form-control"
-              [placeholder]="('Email' | translate) || '&nbsp;'"
+              placeholder="Email"
             />
           </div>
           <div class="col-sm-6" *ngIf="new">
-            <label>{{ 'Password' | translate }}</label>
+            <label>Password</label>
             <input
               type="password"
               [(ngModel)]="password"
               class="form-control"
-              [placeholder]="('Password' | translate) || '&nbsp;'"
+              placeholder="Password"
             />
           </div>
           <div class="col-sm-6">
-            <label>{{ 'Contact No' | translate }}</label>
+            <label>Contact No</label>
             <input
               type="number"
               [(ngModel)]="phone"
               class="form-control"
-              [placeholder]="('Contact No' | translate) || '&nbsp;'"
+              placeholder="Contact No"
             />
           </div>
         </div>
 
-        <h4 class="sub-title">{{ 'Restaurants Details' | translate }}</h4>
+        <h4 class="sub-title">Restaurants Details</h4>
         <div class="form-group row">
           <div class="col-sm-6">
-            <label>{{ 'Restaurants Name' | translate }}</label>
+            <label>Restaurants Name</label>
             <input
               type="text"
               [(ngModel)]="name"
               class="form-control"
-              [placeholder]="('Restaurants Name' | translate) || '&nbsp;'"
+              placeholder="Restaurants Name"
             />
           </div>
           <div class="col-sm-6">
-            <label>{{ 'Select Cuisine' | translate }}</label>
+            <label>Select Cuisine</label>
             <ng-multiselect-dropdown
-              [placeholder]="('Select Cuisine' | translate) || '&nbsp;'"
+              placeholder="Select Cuisine"
               maxHeight="100"
               [data]="dropdownList"
               [(ngModel)]="selectedItems"
@@ -96,7 +94,7 @@
             </ng-multiselect-dropdown>
           </div>
           <div class="col-sm-12">
-            <label>{{ 'Address' | translate }}</label>
+            <label>Address</label>
             <input
               type="text"
               [(ngModel)]="address"
@@ -104,12 +102,12 @@
               #placesRef="ngx-places"
               (onAddressChange)="handleAddressChange($event)"
               class="form-control"
-              [placeholder]="('Address' | translate) || '&nbsp;'"
+              placeholder="Address"
             />
           </div>
 
           <div class="col-sm-6">
-            <label>{{ 'Per Person Dish $' | translate }}</label>
+            <label>Per Person Dish $</label>
             <input
               [(ngModel)]="dishPrice"
               type="number"
@@ -118,46 +116,44 @@
             />
           </div>
           <div class="col-sm-6">
-            <label>{{ 'Opening Time' | translate }}</label>
+            <label>Opening Time</label>
             <input
               [(ngModel)]="openTime"
               type="time"
               class="form-control"
-              [placeholder]="('Opening Time' | translate) || '&nbsp;'"
+              placeholder="Opening Time"
             />
           </div>
           <div class="col-sm-6">
-            <label>{{ 'Closing Time' | translate }}</label>
+            <label>Closing Time</label>
             <input
               [(ngModel)]="closeTime"
               type="time"
               class="form-control"
-              [placeholder]="('Closing Time' | translate) || '&nbsp;'"
+              placeholder="Closing Time"
             />
           </div>
           <div class="col-sm-6">
-            <label>{{ 'Estimated Delivery time' | translate }}</label>
+            <label>Estimated Delivery time</label>
             <input
               [(ngModel)]="time"
               type="number"
               class="form-control"
-              [placeholder]="
-                ('Estimated Delivery time' | translate) || '&nbsp;'
-              "
+              placeholder="Estimated Delivery time"
             />
           </div>
           <div class="col-sm-12">
-            <label>{{ 'Restaurant Description' | translate }}</label>
+            <label>Restaurant Description</label>
             <textarea
               [(ngModel)]="descritions"
               rows="5"
               cols="5"
               class="form-control"
-              [placeholder]="('Restaurant Description' | translate) || '&nbsp;'"
+              placeholder="Restaurant Description"
             ></textarea>
           </div>
           <div class="col-sm-12">
-            <label>{{ 'Select city' | translate }}</label>
+            <label>Select city</label>
             <select name="select" [(ngModel)]="city" class="form-control">
               <option *ngFor="let item of cities" [value]="item.id">
                 {{ item.name }}
@@ -192,14 +188,14 @@
               (click)="create()"
               *ngIf="new"
             >
-              {{ 'Create New Restaurant' | translate }}
+              Create New Restaurant
             </button>
             <button
               class="btn btn-danger btn-round"
               (click)="updateVenue()"
               *ngIf="!new"
             >
-              {{ 'Update Restaurant' | translate }}
+              Update Restaurant
             </button>
           </div>
         </div>

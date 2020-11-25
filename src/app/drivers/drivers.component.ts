@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-drivers',
   templateUrl: './drivers.component.html',
-  styleUrls: ['./drivers.component.css']
+  styleUrls: ['./drivers.component.css'],
 })
 export class DriversComponent implements OnInit {
   drivers: any[] = [];
@@ -16,34 +16,39 @@ export class DriversComponent implements OnInit {
   constructor(
     private api: ApisService,
     private router: Router,
-    private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService
   ) {
     this.getUsers();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getUsers() {
     this.drivers = [];
     this.dummyDrivers = [];
-    this.api.getUsers().then((data) => {
-      this.dummy = [];
-      console.log('users data', data);
-      data.forEach(element => {
-        if (element.type === 'delivery') {
-          this.drivers.push(element);
-          this.dummyDrivers.push(element);
+    this.api
+      .getUsers()
+      .then(
+        (data) => {
+          this.dummy = [];
+          console.log('users data', data);
+          data.forEach((element) => {
+            if (element.type === 'delivery') {
+              this.drivers.push(element);
+              this.dummyDrivers.push(element);
+            }
+          });
+          console.log(this.drivers);
+        },
+        (error) => {
+          this.dummy = [];
+          console.log(error);
         }
+      )
+      .catch((error) => {
+        this.dummy = [];
+        console.log(error);
       });
-      console.log(this.drivers);
-    }, error => {
-      this.dummy = [];
-      console.log(error);
-    }).catch(error => {
-      this.dummy = [];
-      console.log(error);
-    });
   }
 
   search(string) {
@@ -52,10 +57,9 @@ export class DriversComponent implements OnInit {
     this.drivers = this.filterItems(string);
   }
 
-
   protected resetChanges = () => {
     this.drivers = this.dummyDrivers;
-  }
+  };
 
   setFilteredItems() {
     console.log('clear');
@@ -67,14 +71,13 @@ export class DriversComponent implements OnInit {
     return this.drivers.filter((item) => {
       return item.fullname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
-
   }
 
   createNew() {
     const navData: NavigationExtras = {
       queryParams: {
-        register: true
-      }
+        register: true,
+      },
     };
     this.router.navigate(['admin-newdriver'], navData);
   }
@@ -91,31 +94,37 @@ export class DriversComponent implements OnInit {
     const text = item.status === 'active' ? 'deactive' : 'active';
     console.log(text);
     Swal.fire({
-      title: this.api.translate('Are you sure?'),
-      text: this.api.translate('To ') + text + this.api.translate(' this driver!'),
+      title: 'Are you sure?',
+      text: 'To ' + text + ' this driver!',
       icon: 'question',
       showConfirmButton: true,
-      confirmButtonText: this.api.translate('Yes'),
+      confirmButtonText: 'Yes',
       showCancelButton: true,
-      cancelButtonText: this.api.translate('Cancle'),
+      cancelButtonText: 'Cancle',
       backdrop: false,
-      background: 'white'
+      background: 'white',
     }).then((data) => {
       if (data && data.value) {
         console.log('update it');
         item.status = text;
         console.log(item);
         this.spinner.show();
-        this.api.updateProfile(item.uid, item).then((data) => {
-          this.spinner.hide();
-          this.getUsers();
-        }, error => {
-          console.log(error);
-          this.spinner.hide();
-        }).catch(error => {
-          this.spinner.hide();
-          console.log(error);
-        });
+        this.api
+          .updateProfile(item.uid, item)
+          .then(
+            (data) => {
+              this.spinner.hide();
+              this.getUsers();
+            },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+            }
+          )
+          .catch((error) => {
+            this.spinner.hide();
+            console.log(error);
+          });
       }
     });
   }
@@ -123,8 +132,8 @@ export class DriversComponent implements OnInit {
     const navData: NavigationExtras = {
       queryParams: {
         id: item.uid,
-        register: false
-      }
+        register: false,
+      },
     };
     this.router.navigate(['admin-newdriver'], navData);
   }

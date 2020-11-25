@@ -7,7 +7,7 @@ import { NavigationExtras, Router } from '@angular/router';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
   users: any[] = [];
@@ -21,28 +21,33 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   getUsers() {
     this.users = [];
     this.dummyUsers = [];
-    this.api.getUsers().then((data) => {
-      this.dummy = [];
-      console.log('users data', data);
-      data.forEach(element => {
-        if (element.type === 'user') {
-          this.users.push(element);
-          this.dummyUsers.push(element);
+    this.api
+      .getUsers()
+      .then(
+        (data) => {
+          this.dummy = [];
+          console.log('users data', data);
+          data.forEach((element) => {
+            if (element.type === 'user') {
+              this.users.push(element);
+              this.dummyUsers.push(element);
+            }
+          });
+          console.log(this.users);
+        },
+        (error) => {
+          console.log(error);
+          this.dummy = [];
         }
+      )
+      .catch((error) => {
+        console.log(error);
+        this.dummy = [];
       });
-      console.log(this.users);
-    }, error => {
-      console.log(error);
-      this.dummy = [];
-    }).catch(error => {
-      console.log(error);
-      this.dummy = [];
-    });
   }
   search(string) {
     this.resetChanges();
@@ -50,10 +55,9 @@ export class UsersComponent implements OnInit {
     this.users = this.filterItems(string);
   }
 
-
   protected resetChanges = () => {
     this.users = this.dummyUsers;
-  }
+  };
 
   setFilteredItems() {
     console.log('clear');
@@ -73,31 +77,37 @@ export class UsersComponent implements OnInit {
     const text = item.status === 'active' ? 'deactive' : 'active';
     console.log(text);
     Swal.fire({
-      title: this.api.translate('Are you sure?'),
-      text: this.api.translate('To ') + text + this.api.translate(' this user!'),
+      title: 'Are you sure?',
+      text: 'To ' + text + ' this user!',
       icon: 'question',
       showConfirmButton: true,
-      confirmButtonText: this.api.translate('Yes'),
+      confirmButtonText: 'Yes',
       showCancelButton: true,
-      cancelButtonText: this.api.translate('Cancle'),
+      cancelButtonText: 'Cancle',
       backdrop: false,
-      background: 'white'
+      background: 'white',
     }).then((data) => {
       if (data && data.value) {
         console.log('update it');
         item.status = text;
         console.log(item);
         this.spinner.show();
-        this.api.updateProfile(item.uid, item).then((data) => {
-          this.spinner.hide();
-          this.getUsers();
-        }, error => {
-          console.log(error);
-          this.spinner.hide();
-        }).catch(error => {
-          this.spinner.hide();
-          console.log(error);
-        });
+        this.api
+          .updateProfile(item.uid, item)
+          .then(
+            (data) => {
+              this.spinner.hide();
+              this.getUsers();
+            },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+            }
+          )
+          .catch((error) => {
+            this.spinner.hide();
+            console.log(error);
+          });
       }
     });
   }
@@ -110,8 +120,8 @@ export class UsersComponent implements OnInit {
   openUser(item) {
     const navData: NavigationExtras = {
       queryParams: {
-        id: item.uid
-      }
+        id: item.uid,
+      },
     };
     this.router.navigate(['admin-userdetails'], navData);
   }

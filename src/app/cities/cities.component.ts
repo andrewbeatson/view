@@ -7,10 +7,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-cities',
   templateUrl: './cities.component.html',
-  styleUrls: ['./cities.component.css']
+  styleUrls: ['./cities.component.css'],
 })
 export class CitiesComponent implements OnInit {
-
   cities: any;
   dummy = Array(50);
   constructor(
@@ -21,17 +20,19 @@ export class CitiesComponent implements OnInit {
     this.getCity();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   getCity() {
-    this.api.getCities().then(data => {
-      console.log(data);
-      this.cities = data;
-      this.dummy = [];
-    }).catch(error => {
-      console.log(error);
-      this.dummy = [];
-    });
+    this.api
+      .getCities()
+      .then((data) => {
+        console.log(data);
+        this.cities = data;
+        this.dummy = [];
+      })
+      .catch((error) => {
+        console.log(error);
+        this.dummy = [];
+      });
   }
   createNew() {
     this.router.navigate(['admin-newcities']);
@@ -49,59 +50,71 @@ export class CitiesComponent implements OnInit {
   changeStatus(item) {
     const text = item.status === 'active' ? 'deactive' : 'active';
     Swal.fire({
-      title: this.api.translate('Are you sure?'),
-      text: this.api.translate('To ') + text + this.api.translate(' this city!'),
+      title: 'Are you sure?',
+      text: 'To ' + text + ' this city!',
       icon: 'question',
       showConfirmButton: true,
-      confirmButtonText: this.api.translate('Yes'),
+      confirmButtonText: 'Yes',
       showCancelButton: true,
-      cancelButtonText: this.api.translate('Cancle'),
+      cancelButtonText: 'Cancle',
       backdrop: false,
-      background: 'white'
+      background: 'white',
     }).then((data) => {
       if (data && data.value) {
         console.log('update it');
         item.status = text;
         console.log(item);
         this.spinner.show();
-        this.api.updateCity(item).then((data) => {
-          this.spinner.hide();
-          this.getCity();
-        }, error => {
-          console.log(error);
-          this.spinner.hide();
-        }).catch(error => {
-          this.spinner.hide();
-          console.log(error);
-        });
+        this.api
+          .updateCity(item)
+          .then(
+            (data) => {
+              this.spinner.hide();
+              this.getCity();
+            },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+            }
+          )
+          .catch((error) => {
+            this.spinner.hide();
+            console.log(error);
+          });
       }
     });
   }
   delete(item) {
     Swal.fire({
-      title: this.api.translate('Are you sure?'),
-      text: this.api.translate('To delete this city!'),
+      title: 'Are you sure?',
+      text: 'To delete this city!',
       icon: 'question',
       showConfirmButton: true,
-      confirmButtonText: this.api.translate('Yes'),
+      confirmButtonText: 'Yes',
       showCancelButton: true,
-      cancelButtonText: this.api.translate('Cancle'),
+      cancelButtonText: 'Cancle',
       backdrop: false,
-      background: 'white'
+      background: 'white',
     }).then((data) => {
       if (data && data.value) {
         console.log('update it');
         this.spinner.show();
-        this.api.deleteCity(item).then((data) => {
-          this.spinner.hide();
-          this.getCity();
-        }, error => {
-          console.log(error);
-          this.spinner.hide();
-        }).catch(error => {
-          this.spinner.hide();
-          console.log(error);
-        });
+        this.api
+          .deleteCity(item)
+          .then(
+            (data) => {
+              this.spinner.hide();
+              this.getCity();
+            },
+            (error) => {
+              console.log(error);
+              this.spinner.hide();
+            }
+          )
+          .catch((error) => {
+            this.spinner.hide();
+            console.log(error);
+          });
       }
     });
   }

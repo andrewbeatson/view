@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
-import { TranslateService } from '@ngx-translate/core';
+
 export class AuthInfo {
   constructor(public $uid: string) {}
 
@@ -27,11 +27,10 @@ export class ApisService {
   constructor(
     private fireAuth: AngularFireAuth,
     private adb: AngularFirestore,
-    private http: HttpClient,
-    private translateService: TranslateService
+    private http: HttpClient
   ) {}
 
-  public checkAuth() {
+  checkAuth() {
     return new Promise((resolve, reject) => {
       this.fireAuth.auth.onAuthStateChanged((user) => {
         console.log(user);
@@ -47,17 +46,7 @@ export class ApisService {
     });
   }
 
-  translate(str) {
-    const currentLang = this.translateService.currentLang;
-    const returnValue = this.translateService.translations[currentLang][str];
-    if (returnValue === undefined) {
-      return this.translateService.translations.en_merch[str];
-    } else {
-      return returnValue;
-    }
-  }
-
-  public checkEmail(email: string): Promise<any> {
+  checkEmail(email: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.auth
         .fetchSignInMethodsForEmail(email)
@@ -70,12 +59,7 @@ export class ApisService {
     });
   }
 
-  public register(
-    emails: string,
-    pwd: string,
-    fnames: string,
-    lnames
-  ): Promise<any> {
+  register(emails: string, pwd: string, fnames: string, lnames): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.auth
         .createUserWithEmailAndPassword(emails, pwd)
@@ -100,7 +84,7 @@ export class ApisService {
     });
   }
 
-  public createAdminProfile(emails: string, pwd: string): Promise<any> {
+  createAdminProfile(emails: string, pwd: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.auth
         .createUserWithEmailAndPassword(emails, pwd)
@@ -122,7 +106,7 @@ export class ApisService {
     });
   }
 
-  public createVenue(informations: any): Promise<any> {
+  createVenue(informations: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('venue')
@@ -146,7 +130,7 @@ export class ApisService {
     Swal.fire(title, message, type);
   }
 
-  public login(email: string, password: string): Promise<any> {
+  login(email: string, password: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.auth
         .signInWithEmailAndPassword(email, password)
@@ -163,7 +147,7 @@ export class ApisService {
     });
   }
 
-  public createUser(
+  createUser(
     email: string,
     password: string,
     firstname: string,
@@ -201,13 +185,13 @@ export class ApisService {
     });
   }
 
-  public logout(): Promise<void> {
+  logout(): Promise<void> {
     this.authInfo$.next(ApisService.UNKNOWN_USER);
     // this.db.collection('users').doc(localStorage.getItem('uid')).update({ "fcm_token": firebase.firestore.FieldValue.delete() })
     return this.fireAuth.auth.signOut();
   }
 
-  public getProfile(id): Promise<any> {
+  getProfile(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('users')
@@ -224,33 +208,7 @@ export class ApisService {
     });
   }
 
-  public getRestReview(id): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('reviews', (ref) => ref.where('restId', '==', id))
-        .get()
-        .subscribe(
-          async (review) => {
-            let data = review.docs.map((element) => {
-              let item = element.data();
-              item.id = element.id;
-              if (item && item.uid) {
-                item.uid.get().then(function (doc) {
-                  item.uid = doc.data();
-                });
-              }
-              return item;
-            });
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  public getAdmin(): Promise<any> {
+  getAdmin(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('users', (ref) => ref.where('type', '==', 'admin'))
@@ -271,15 +229,11 @@ export class ApisService {
     });
   }
 
-  getCurrencyCode() {
-    return environment.general.code;
-  }
-
   getCurrecySymbol() {
     return environment.general.symbol;
   }
 
-  public getVenues(): Promise<any> {
+  getVenues(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('venue')
@@ -300,7 +254,7 @@ export class ApisService {
     });
   }
 
-  public getUsers(): Promise<any> {
+  getUsers(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('users')
@@ -341,7 +295,7 @@ export class ApisService {
     );
   }
 
-  public getVenueDetails(id): Promise<any> {
+  getVenueDetails(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('venue')
@@ -357,7 +311,8 @@ export class ApisService {
         );
     });
   }
-  public getMyProfile(id): Promise<any> {
+
+  getMyProfile(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('users')
@@ -374,114 +329,7 @@ export class ApisService {
     });
   }
 
-  public getVenueUser(id): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('users')
-        .doc(id)
-        .get()
-        .subscribe(
-          (venue: any) => {
-            resolve(venue.data());
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  public getVenueCategories(id): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('categories', (ref) => ref.where('uid', '==', id))
-        .get()
-        .subscribe(
-          (venue) => {
-            var data = venue.docs.map((element) => {
-              var item = element.data();
-              item.id = element.id;
-              return item;
-            });
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  public getFoods(uid: any): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.db
-        .collection('foods')
-        .doc(uid)
-        .collection('all')
-        .get()
-        .then(
-          (data) => {
-            var users = data.docs.map((doc) => {
-              var item = doc.data();
-              item.cid.get().then(function (doc) {
-                item.cid = doc.data();
-                item.cid.id = doc.id;
-              });
-              item.id = doc.id;
-              return item;
-            });
-            resolve(users);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  public addNewAddress(uid, id, param): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('address')
-        .doc(uid)
-        .collection('all')
-        .doc(id)
-        .set(param)
-        .then(
-          (data) => {
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        )
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  public addCoupon(id, param): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('offers')
-        .doc(id)
-        .set(param)
-        .then(
-          (data) => {
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        )
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  public addCity(id, param): Promise<any> {
+  addCity(id, param): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('cities')
@@ -501,7 +349,7 @@ export class ApisService {
     });
   }
 
-  public getCities(): Promise<any> {
+  getCities(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('cities')
@@ -522,49 +370,7 @@ export class ApisService {
     });
   }
 
-  public updateOffers(informations: any): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('offers')
-        .doc(informations.id)
-        .update(informations)
-        .then(
-          (data) => {
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        )
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  public getOffers(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('offers')
-        .get()
-        .subscribe(
-          (venue: any) => {
-            // resolve(venue.data());
-            let data = venue.docs.map((element) => {
-              let item = element.data();
-              item.id = element.id;
-              return item;
-            });
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  public getMessages(id): Promise<any> {
+  getMessages(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('messages')
@@ -588,7 +394,7 @@ export class ApisService {
     });
   }
 
-  public getMyAddress(uid: any): Promise<any> {
+  getMyAddress(uid: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.db
         .collection('address')
@@ -611,82 +417,7 @@ export class ApisService {
     });
   }
 
-  getDriverInfo(id): Promise<any> {
-    return new Promise<any>(async (resolve, reject) => {
-      this.adb
-        .collection('users')
-        .doc(id)
-        .snapshotChanges()
-        .subscribe(
-          (data) => {
-            console.log(data);
-            resolve(data.payload.data());
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  public getDrivers(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('users', (ref) => ref.where('type', '==', 'delivery'))
-        .get()
-        .subscribe(
-          async (venue) => {
-            let data = venue.docs.map((element) => {
-              let item = element.data();
-              item.id = element.id;
-              return item;
-            });
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  public sendOrderToDriver(id, param): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('driverOrders')
-        .doc(id)
-        .set(param)
-        .then(
-          (data) => {
-            resolve(data);
-          },
-          (error) => {
-            reject(error);
-          }
-        )
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  public addReview(param): Promise<any> {
-    param.vid = this.db.collection('venue').doc(param.vid);
-    return new Promise<any>((resolve, reject) => {
-      this.adb
-        .collection('reviews')
-        .doc(Math.random().toString())
-        .set(param)
-        .then((data) => {
-          resolve(data);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  public updateVenue(informations: any): Promise<any> {
+  updateVenue(informations: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('venue')
@@ -706,7 +437,7 @@ export class ApisService {
     });
   }
 
-  public updateCity(informations: any): Promise<any> {
+  updateCity(informations: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('cities')
@@ -726,7 +457,7 @@ export class ApisService {
     });
   }
 
-  public deleteCity(informations: any): Promise<any> {
+  deleteCity(informations: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('cities')
@@ -746,7 +477,7 @@ export class ApisService {
     });
   }
 
-  public updateProfile(uid, param): Promise<any> {
+  updateProfile(uid, param): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.db
         .collection('users')
@@ -761,7 +492,7 @@ export class ApisService {
     });
   }
 
-  public getMyReviews(id): Promise<any> {
+  getMyReviews(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
         .collection('reviews', (ref) => ref.where('id', '==', id))
@@ -786,32 +517,5 @@ export class ApisService {
           }
         );
     });
-  }
-
-  JSON_to_URLEncoded(element, key?, list?) {
-    let new_list = list || [];
-    if (typeof element == 'object') {
-      for (let idx in element) {
-        this.JSON_to_URLEncoded(
-          element[idx],
-          key ? key + '[' + idx + ']' : idx,
-          new_list
-        );
-      }
-    } else {
-      new_list.push(key + '=' + encodeURIComponent(element));
-    }
-    return new_list.join('&');
-  }
-
-  httpPost(url, body) {
-    const header = {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', `Bearer ${environment.stripe.sk}`),
-    };
-    const order = this.JSON_to_URLEncoded(body);
-    console.log(order);
-    return this.http.post(url, order, header);
   }
 }

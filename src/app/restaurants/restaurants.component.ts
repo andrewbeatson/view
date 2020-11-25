@@ -6,7 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
-  styleUrls: ['./restaurants.component.css']
+  styleUrls: ['./restaurants.component.css'],
 })
 export class RestaurantsComponent implements OnInit {
   rest: any[] = [];
@@ -15,24 +15,30 @@ export class RestaurantsComponent implements OnInit {
   constructor(
     private api: ApisService,
     private router: Router,
-    private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService
   ) {
     this.getRest();
   }
 
   getRest() {
-    this.api.getVenues().then((data) => {
-      console.log('rest data', data);
-      this.rest = data;
-      this.dummyRest = data;
-      this.dummy = [];
-    }, error => {
-      console.log(error);
-      this.dummy = [];
-    }).catch(error => {
-      console.log(error);
-      this.dummy = [];
-    });
+    this.api
+      .getVenues()
+      .then(
+        (data) => {
+          console.log('rest data', data);
+          this.rest = data;
+          this.dummyRest = data;
+          this.dummy = [];
+        },
+        (error) => {
+          console.log(error);
+          this.dummy = [];
+        }
+      )
+      .catch((error) => {
+        console.log(error);
+        this.dummy = [];
+      });
   }
 
   search(string) {
@@ -41,10 +47,9 @@ export class RestaurantsComponent implements OnInit {
     this.rest = this.filterItems(string);
   }
 
-
   protected resetChanges = () => {
     this.rest = this.dummyRest;
-  }
+  };
 
   setFilteredItems() {
     console.log('clear');
@@ -56,11 +61,9 @@ export class RestaurantsComponent implements OnInit {
     return this.rest.filter((item) => {
       return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
-
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   getClass(item) {
     if (item === 'created' || item === 'accepted' || item === 'picked') {
       return 'btn btn-primary btn-round';
@@ -76,8 +79,8 @@ export class RestaurantsComponent implements OnInit {
     const navData: NavigationExtras = {
       queryParams: {
         id: item.id,
-        register: false
-      }
+        register: false,
+      },
     };
     this.router.navigate(['admin-rest-details'], navData);
   }
@@ -86,13 +89,13 @@ export class RestaurantsComponent implements OnInit {
     console.log(item);
     const text = item.status === 'open' ? 'close' : 'open';
     Swal.fire({
-      title: this.api.translate('Are you sure?'),
-      text: this.api.translate(`You can change it later`),
+      title: 'Are you sure?',
+      text: `You can change it later`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: this.api.translate('Yes, ') + text + this.api.translate(' it!')
+      confirmButtonText: 'Yes, ' + text + ' it!',
     }).then((result) => {
       if (result.value) {
         const param = {
@@ -101,27 +104,29 @@ export class RestaurantsComponent implements OnInit {
           status: text,
         };
         this.spinner.show();
-        this.api.updateVenue(param).then((data) => {
-          this.spinner.hide();
-          this.getRest();
-          Swal.fire(
-            this.api.translate('Updated!'),
-            this.api.translate('Restaurants updated'),
-            'success'
-          );
-        }).catch(error => {
-          console.log(error);
-          this.spinner.hide();
-        });
+        this.api
+          .updateVenue(param)
+          .then((data) => {
+            this.spinner.hide();
+            this.getRest();
+            Swal.fire('Updated!', 'Restaurants updated', 'success');
+          })
+          .catch((error) => {
+            console.log(error);
+            this.spinner.hide();
+          });
         const userStatus = text === 'open' ? 'active' : 'deactive';
         const statusChange = {
-          status: userStatus
+          status: userStatus,
         };
-        this.api.updateProfile(item.uid, statusChange).then(data => {
-          console.log(data);
-        }).catch(error => {
-          console.log(error);
-        });
+        this.api
+          .updateProfile(item.uid, statusChange)
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     });
   }
@@ -129,13 +134,9 @@ export class RestaurantsComponent implements OnInit {
   createNew() {
     const navData: NavigationExtras = {
       queryParams: {
-        register: true
-      }
+        register: true,
+      },
     };
     this.router.navigate(['admin-rest-details'], navData);
-  }
-
-  getCurrency() {
-    return this.api.getCurrecySymbol();
   }
 }
