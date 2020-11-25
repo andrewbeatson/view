@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApisService } from 'src/app/services/apis.service';
-import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-basic-login',
@@ -14,7 +14,6 @@ export class BasicLoginComponent implements OnInit {
   password: any = '';
   constructor(
     private api: ApisService,
-    private toastyService: ToastyService,
     private router: Router,
     private spinner: NgxSpinnerService
   ) {}
@@ -35,14 +34,22 @@ export class BasicLoginComponent implements OnInit {
             .getProfile(data.uid)
             .then(
               (info: any) => {
-                console.log(info);
                 this.spinner.hide();
                 if (info && info.type === 'admin') {
-                  this.success('Login success');
+                  Swal.fire({
+                    title: 'Welcome ' + info.firstname,
+                    text: '',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    backdrop: false,
+                    background: 'white',
+                    timer: 2000,
+                  });
                   localStorage.setItem('uid', data.uid);
                   this.router.navigate(['']);
                 } else {
-                  this.error('access denied');
+                  this.error('Please contact your administrator');
                 }
               },
               (error) => {
@@ -67,24 +74,15 @@ export class BasicLoginComponent implements OnInit {
   }
 
   error(message) {
-    const toastOptions: ToastOptions = {
-      title: 'Error',
-      msg: message,
-      showClose: true,
-      timeout: 2000,
-      theme: 'default',
-    };
-    this.toastyService.error(toastOptions);
-  }
-
-  success(message) {
-    const toastOptions: ToastOptions = {
-      title: 'Success',
-      msg: message,
-      showClose: true,
-      timeout: 2000,
-      theme: 'default',
-    };
-    this.toastyService.success(toastOptions);
+    Swal.fire({
+      title: 'Access Denied',
+      text: message,
+      icon: 'error',
+      showConfirmButton: false,
+      showCancelButton: false,
+      backdrop: false,
+      background: 'white',
+      timer: 2000,
+    });
   }
 }

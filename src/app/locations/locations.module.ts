@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CitiesRoutingModule } from './cities-routing.module';
-import { CitiesComponent } from './cities.component';
+import { LocationsRoutingModule } from './locations-routing.module';
+import { LocationsComponent } from './locations.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
-  declarations: [CitiesComponent],
+  declarations: [LocationsComponent],
   imports: [
     CommonModule,
-    CitiesRoutingModule,
+    LocationsRoutingModule,
     NgxSkeletonLoaderModule,
     NgxSpinnerModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class CitiesModule { }
+export class LocationsModule {}

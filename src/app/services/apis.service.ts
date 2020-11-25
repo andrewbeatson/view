@@ -78,7 +78,7 @@ export class ApisService {
         })
         .catch((err) => {
           this.authInfo$.next(ApisService.UNKNOWN_USER);
-          reject(`login failed ${err}`);
+          reject(err);
         });
     });
   }
@@ -100,7 +100,7 @@ export class ApisService {
         })
         .catch((err) => {
           this.authInfo$.next(ApisService.UNKNOWN_USER);
-          reject(`login failed ${err}`);
+          reject(err);
         });
     });
   }
@@ -141,7 +141,7 @@ export class ApisService {
         })
         .catch((err) => {
           this.authInfo$.next(ApisService.UNKNOWN_USER);
-          reject(`login failed ${err}`);
+          reject(err);
         });
     });
   }
@@ -179,7 +179,7 @@ export class ApisService {
         })
         .catch((err) => {
           this.authInfo$.next(ApisService.UNKNOWN_USER);
-          reject(`login failed ${err}`);
+          reject(err);
         });
     });
   }
@@ -328,10 +328,10 @@ export class ApisService {
     });
   }
 
-  addCity(id, param): Promise<any> {
+  addLocation(id, param): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
-        .collection('cities')
+        .collection('locations')
         .doc(id)
         .set(param)
         .then(
@@ -348,10 +348,10 @@ export class ApisService {
     });
   }
 
-  getCities(): Promise<any> {
+  getLocations(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
-        .collection('cities')
+        .collection('locations')
         .get()
         .subscribe(
           (venue: any) => {
@@ -436,10 +436,10 @@ export class ApisService {
     });
   }
 
-  updateCity(informations: any): Promise<any> {
+  updateLocation(informations: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
-        .collection('cities')
+        .collection('locations')
         .doc(informations.id)
         .update(informations)
         .then(
@@ -456,10 +456,10 @@ export class ApisService {
     });
   }
 
-  deleteCity(informations: any): Promise<any> {
+  deleteLocation(informations: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb
-        .collection('cities')
+        .collection('locations')
         .doc(informations.id)
         .delete()
         .then(

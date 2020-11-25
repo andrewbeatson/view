@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "food-app-admin": {
+    "view": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/food-app-admin",
+            "outputPath": "dist/view",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -38,9 +38,7 @@
               "src/styles.scss",
               "src/assets/css/custom.scss"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js"
-            ]
+            "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           },
           "configurations": {
             "production": {
@@ -79,18 +77,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "food-app-admin:build"
+            "browserTarget": "view:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "food-app-admin:build:production"
+              "browserTarget": "view:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "food-app-admin:build"
+            "browserTarget": "view:build"
           }
         },
         "test": {
@@ -105,9 +103,7 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         },
@@ -119,25 +115,23 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "food-app-admin:serve"
+            "devServerTarget": "view:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "food-app-admin:serve:production"
+              "devServerTarget": "view:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "food-app-admin"
+  "defaultProject": "view"
 }

@@ -6,7 +6,7 @@
     "age": 52,
     "address": {
       "state": "South Carolina",
-      "city": "Glendale"
+      "location": "Glendale"
     }
   },
   {
@@ -16,7 +16,7 @@
     "age": 70,
     "address": {
       "state": "Arizona",
-      "city": "Beaverdale"
+      "location": "Beaverdale"
     }
   },
   {
@@ -26,7 +26,7 @@
     "age": 52,
     "address": {
       "state": "New Mexico",
-      "city": "Grazierville"
+      "location": "Grazierville"
     }
   },
   {
@@ -36,7 +36,7 @@
     "age": 61,
     "address": {
       "state": "Wisconsin",
-      "city": "Saranap"
+      "location": "Saranap"
     }
   },
   {
@@ -46,7 +46,7 @@
     "age": 34,
     "address": {
       "state": "Vermont",
-      "city": "Norris"
+      "location": "Norris"
     }
   },
   {
@@ -56,7 +56,7 @@
     "age": 38,
     "address": {
       "state": "Montana",
-      "city": "Bordelonville"
+      "location": "Bordelonville"
     }
   },
   {
@@ -66,7 +66,7 @@
     "age": 33,
     "address": {
       "state": "New Jersey",
-      "city": "Aguila"
+      "location": "Aguila"
     }
   },
   {
@@ -76,7 +76,7 @@
     "age": 18,
     "address": {
       "state": "Virginia",
-      "city": "Kenmar"
+      "location": "Kenmar"
     }
   },
   {
@@ -86,7 +86,7 @@
     "age": 53,
     "address": {
       "state": "Texas",
-      "city": "Alfarata"
+      "location": "Alfarata"
     }
   },
   {
@@ -96,7 +96,7 @@
     "age": 52,
     "address": {
       "state": "Maine",
-      "city": "Witmer"
+      "location": "Witmer"
     }
   },
   {
@@ -106,7 +106,7 @@
     "age": 38,
     "address": {
       "state": "Nevada",
-      "city": "Kipp"
+      "location": "Kipp"
     }
   },
   {
@@ -116,7 +116,7 @@
     "age": 19,
     "address": {
       "state": "Minnesota",
-      "city": "Darrtown"
+      "location": "Darrtown"
     }
   },
   {
@@ -126,7 +126,7 @@
     "age": 24,
     "address": {
       "state": "Georgia",
-      "city": "Crucible"
+      "location": "Crucible"
     }
   },
   {
@@ -136,7 +136,7 @@
     "age": 65,
     "address": {
       "state": "Idaho",
-      "city": "Nord"
+      "location": "Nord"
     }
   },
   {
@@ -146,7 +146,7 @@
     "age": 22,
     "address": {
       "state": "Ohio",
-      "city": "Osmond"
+      "location": "Osmond"
     }
   },
   {
@@ -156,7 +156,7 @@
     "age": 77,
     "address": {
       "state": "Kentucky",
-      "city": "Fairfield"
+      "location": "Fairfield"
     }
   },
   {
@@ -166,7 +166,7 @@
     "age": 26,
     "address": {
       "state": "South Dakota",
-      "city": "Waikele"
+      "location": "Waikele"
     }
   },
   {
@@ -176,7 +176,7 @@
     "age": 37,
     "address": {
       "state": "North Dakota",
-      "city": "Siglerville"
+      "location": "Siglerville"
     }
   },
   {
@@ -186,7 +186,7 @@
     "age": 48,
     "address": {
       "state": "Massachusetts",
-      "city": "Celeryville"
+      "location": "Celeryville"
     }
   },
   {
@@ -196,7 +196,7 @@
     "age": 39,
     "address": {
       "state": "Delaware",
-      "city": "Kylertown"
+      "location": "Kylertown"
     }
   },
   {
@@ -206,7 +206,7 @@
     "age": 68,
     "address": {
       "state": "Arkansas",
-      "city": "Monument"
+      "location": "Monument"
     }
   }
 ]

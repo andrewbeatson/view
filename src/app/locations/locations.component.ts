@@ -5,28 +5,28 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-cities',
-  templateUrl: './cities.component.html',
-  styleUrls: ['./cities.component.css'],
+  selector: 'app-locations',
+  templateUrl: './locations.component.html',
+  styleUrls: ['./locations.component.css'],
 })
-export class CitiesComponent implements OnInit {
-  cities: any;
+export class LocationsComponent implements OnInit {
+  locations: any;
   dummy = Array(50);
   constructor(
     private router: Router,
     private api: ApisService,
     private spinner: NgxSpinnerService
   ) {
-    this.getCity();
+    this.getLocation();
   }
 
   ngOnInit() {}
-  getCity() {
+  getLocation() {
     this.api
-      .getCities()
+      .getLocations()
       .then((data) => {
         console.log(data);
-        this.cities = data;
+        this.locations = data;
         this.dummy = [];
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ export class CitiesComponent implements OnInit {
       });
   }
   createNew() {
-    this.router.navigate(['admin-newcities']);
+    this.router.navigate(['admin-newlocations']);
   }
 
   getClass(item) {
@@ -51,7 +51,7 @@ export class CitiesComponent implements OnInit {
     const text = item.status === 'active' ? 'deactive' : 'active';
     Swal.fire({
       title: 'Are you sure?',
-      text: 'To ' + text + ' this city!',
+      text: 'To ' + text + ' this location!',
       icon: 'question',
       showConfirmButton: true,
       confirmButtonText: 'Yes',
@@ -66,11 +66,11 @@ export class CitiesComponent implements OnInit {
         console.log(item);
         this.spinner.show();
         this.api
-          .updateCity(item)
+          .updateLocation(item)
           .then(
             (data) => {
               this.spinner.hide();
-              this.getCity();
+              this.getLocation();
             },
             (error) => {
               console.log(error);
@@ -87,7 +87,7 @@ export class CitiesComponent implements OnInit {
   delete(item) {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'To delete this city!',
+      text: 'To delete this location!',
       icon: 'question',
       showConfirmButton: true,
       confirmButtonText: 'Yes',
@@ -100,11 +100,11 @@ export class CitiesComponent implements OnInit {
         console.log('update it');
         this.spinner.show();
         this.api
-          .deleteCity(item)
+          .deleteLocation(item)
           .then(
             (data) => {
               this.spinner.hide();
-              this.getCity();
+              this.getLocation();
             },
             (error) => {
               console.log(error);

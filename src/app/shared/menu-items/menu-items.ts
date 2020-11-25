@@ -40,8 +40,8 @@ const MENUITEMS = [
         icon: 'ti-home',
       },
       {
-        state: 'admin-cities',
-        name: 'Available Cities',
+        state: 'admin-locations',
+        name: 'Available Locations',
         type: 'link',
         icon: 'ti-location-pin',
       },
@@ -52,14 +52,8 @@ const MENUITEMS = [
         icon: 'ti-notepad',
       },
       {
-        state: 'admin-users',
-        name: 'Users',
-        type: 'link',
-        icon: 'ti-user',
-      },
-      {
         state: 'admin-drivers',
-        name: 'Drivers',
+        name: 'Users',
         type: 'link',
         icon: 'ti-truck',
       },
@@ -82,123 +76,122 @@ const MENUITEMS = [
       },
     ],
   },
-  // {
-  //   label: 'Forms',
-  //   main: [
-  //     {
-  //       state: 'forms',
-  //       name: 'Form Components',
-  //       type: 'link',
-  //       icon: 'ti-layers'
-  //     }
-  //   ]
-  // },
-  // {
-  //   label: 'Tables',
-  //   main: [
-  //     {
-  //       state: 'bootstrap-table',
-  //       name: 'Bootstrap Table',
-  //       type: 'link',
-  //       icon: 'ti-receipt'
-  //     }
-  //   ]
-  // },
-  // {
-  //   label: 'Map',
-  //   main: [
-  //     {
-  //       state: 'map',
-  //       name: 'Maps',
-  //       type: 'link',
-  //       icon: 'ti-map-alt'
-  //     }
-  //   ]
-  // },
-  // {
-  //   label: 'Pages',
-  //   main: [
-  //     {
-  //       state: 'auth',
-  //       short_label: 'A',
-  //       name: 'Authentication',
-  //       type: 'sub',
-  //       icon: 'ti-id-badge',
-  //       children: [
-  //         {
-  //           state: 'login',
-  //           type: 'link',
-  //           name: 'Login',
-  //           target: true
-  //         }, {
-  //           state: 'registration',
-  //           type: 'link',
-  //           name: 'Registration',
-  //           target: true
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
-  // {
-  //   label: 'Other',
-  //   main: [
-  //     {
-  //       state: '',
-  //       name: 'Menu Levels',
-  //       type: 'sub',
-  //       icon: 'ti-direction-alt',
-  //       children: [
-  //         {
-  //           state: '',
-  //           name: 'Menu Level 2.1',
-  //           target: true
-  //         }, {
-  //           state: '',
-  //           name: 'Menu Level 2.2',
-  //           type: 'sub',
-  //           children: [
-  //             {
-  //               state: '',
-  //               name: 'Menu Level 2.2.1',
-  //               target: true
-  //             },
-  //             {
-  //               state: '',
-  //               name: 'Menu Level 2.2.2',
-  //               target: true
-  //             }
-  //           ]
-  //         }, {
-  //           state: '',
-  //           name: 'Menu Level 2.3',
-  //           target: true
-  //         }, {
-  //           state: '',
-  //           name: 'Menu Level 2.4',
-  //           type: 'sub',
-  //           children: [
-  //             {
-  //               state: '',
-  //               name: 'Menu Level 2.4.1',
-  //               target: true
-  //             },
-  //             {
-  //               state: '',
-  //               name: 'Menu Level 2.4.2',
-  //               target: true
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     }, {
-  //       state: 'simple-page',
-  //       name: 'Simple Page',
-  //       type: 'link',
-  //       icon: 'ti-layout-sidebar-left'
-  //     }
-  //   ]
-  // }
+  {
+    label: 'Forms',
+    main: [
+      {
+        state: 'forms',
+        name: 'Form Components',
+        type: 'link',
+        icon: 'ti-layers',
+      },
+    ],
+  },
+  {
+    label: 'Tables',
+    main: [
+      {
+        state: 'bootstrap-table',
+        name: 'Bootstrap Table',
+        type: 'link',
+        icon: 'ti-receipt',
+      },
+    ],
+  },
+  {
+    label: 'Map',
+    main: [
+      {
+        state: 'map',
+        name: 'Maps',
+        type: 'link',
+        icon: 'ti-map-alt',
+      },
+    ],
+  },
+  {
+    label: 'Pages',
+    main: [
+      {
+        state: 'auth',
+        short_label: 'A',
+        name: 'Authentication',
+        type: 'sub',
+        icon: 'ti-id-badge',
+        children: [
+          {
+            state: 'login',
+            type: 'link',
+            name: 'Login',
+            target: true,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Other',
+    main: [
+      {
+        state: '',
+        name: 'Menu Levels',
+        type: 'sub',
+        icon: 'ti-direction-alt',
+        children: [
+          {
+            state: '',
+            name: 'Menu Level 2.1',
+            target: true,
+          },
+          {
+            state: '',
+            name: 'Menu Level 2.2',
+            type: 'sub',
+            children: [
+              {
+                state: '',
+                name: 'Menu Level 2.2.1',
+                target: true,
+              },
+              {
+                state: '',
+                name: 'Menu Level 2.2.2',
+                target: true,
+              },
+            ],
+          },
+          {
+            state: '',
+            name: 'Menu Level 2.3',
+            target: true,
+          },
+          {
+            state: '',
+            name: 'Menu Level 2.4',
+            type: 'sub',
+            children: [
+              {
+                state: '',
+                name: 'Menu Level 2.4.1',
+                target: true,
+              },
+              {
+                state: '',
+                name: 'Menu Level 2.4.2',
+                target: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        state: 'simple-page',
+        name: 'Simple Page',
+        type: 'link',
+        icon: 'ti-layout-sidebar-left',
+      },
+    ],
+  },
 ];
 
 @Injectable()
@@ -206,8 +199,4 @@ export class MenuItems {
   getAll(): Menu[] {
     return MENUITEMS;
   }
-
-  /*add(menu: Menu) {
-    MENUITEMS.push(menu);
-  }*/
 }

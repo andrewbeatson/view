@@ -1,19 +1,19 @@
-import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
-import {cardToggle, cardClose} from './card-animation';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { cardToggle, cardClose } from './card-animation';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
   animations: [cardToggle, cardClose],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CardComponent implements OnInit {
   @Input() headerContent: string;
   @Input() title: string;
   @Input() blockClass: string;
   @Input() cardClass: string;
-  @Input() classHeader: boolean = false;
+  @Input() classHeader = false;
   cardToggle: string = 'expanded';
   cardClose: string = 'open';
 
@@ -24,11 +24,11 @@ export class CardComponent implements OnInit {
     this.fullCardIcon = 'fa-expand';
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   toggleCard() {
-    this.cardToggle = this.cardToggle === 'collapsed' ? 'expanded' : 'collapsed';
+    this.cardToggle =
+      this.cardToggle === 'collapsed' ? 'expanded' : 'collapsed';
   }
 
   closeCard() {
@@ -37,6 +37,7 @@ export class CardComponent implements OnInit {
 
   fullScreen(event) {
     this.fullCard = this.fullCard === 'full-card' ? '' : 'full-card';
-    this.fullCardIcon = this.fullCardIcon === 'fa-expand' ? 'fa-compress' : 'fa-expand';
+    this.fullCardIcon =
+      this.fullCardIcon === 'fa-expand' ? 'fa-compress' : 'fa-expand';
   }
 }

@@ -244,33 +244,6 @@ var MENUITEMS = [
                                 target: true
                             }
                         ]
-                    }, {
-                        state: 'registration',
-                        type: 'sub',
-                        name: 'Registration Pages',
-                        children: [
-                            {
-                                state: 'with-bg-image',
-                                name: 'With BG Image',
-                                target: true
-                            }, {
-                                state: 'with-header-footer',
-                                name: 'With Header Footer',
-                                target: true
-                            }, {
-                                state: 'with-social',
-                                name: 'With Social Icon',
-                                target: true
-                            }, {
-                                state: 'with-social-header-footer',
-                                name: 'Social With Header Footer',
-                                target: true
-                            }, {
-                                state: 'multi-step',
-                                name: 'Multi Step',
-                                target: true
-                            }
-                        ]
                     },
                     {
                         state: 'forgot',

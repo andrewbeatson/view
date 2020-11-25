@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NewcitiesRoutingModule } from './newcities-routing.module';
-import { NewcitiesComponent } from './newcities.component';
+import { NewlocationsRoutingModule } from './newlocations-routing.module';
+import { NewlocationsComponent } from './newlocations.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
-
 @NgModule({
-  declarations: [NewcitiesComponent],
+  declarations: [NewlocationsComponent],
   imports: [
     CommonModule,
-    NewcitiesRoutingModule,
+    NewlocationsRoutingModule,
     SharedModule,
     NgxSpinnerModule,
     GooglePlaceModule,
-  ]
+  ],
 })
-export class NewcitiesModule { }
+export class NewlocationsModule {}

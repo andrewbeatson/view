@@ -37,7 +37,7 @@ export class RestdetailsComponent implements OnInit {
   image6: any;
   name: any = '';
   descritions: any = '';
-  haveData: boolean = false;
+  haveData = false;
   dishPrice: any = '';
   time: any = '';
   cusine: any;
@@ -49,11 +49,11 @@ export class RestdetailsComponent implements OnInit {
   lname: any = '';
   password: any = '';
   phone: any = '';
-  city: any = '';
+  location: any = '';
   totalSales: any = 0;
   totalOrders: any = 0;
   reviews: any[] = [];
-  cities: any[] = [];
+  locations: any[] = [];
   constructor(
     private route: ActivatedRoute,
     private api: ApisService,
@@ -62,7 +62,7 @@ export class RestdetailsComponent implements OnInit {
     private navCtrl: Location,
     private chMod: ChangeDetectorRef
   ) {
-    this.getCity();
+    this.getLocation();
   }
 
   ngOnInit() {
@@ -131,7 +131,7 @@ export class RestdetailsComponent implements OnInit {
           this.dishPrice = data.dishPrice;
           this.cusine = data.cusine;
           this.openTime = data.openTime;
-          this.city = data.city;
+          this.location = data.location;
           this.closeTime = data.closeTime;
           this.phone = data.phone;
           this.cusine.forEach((element) => {
@@ -171,12 +171,12 @@ export class RestdetailsComponent implements OnInit {
     return moment(date).format('llll');
   }
 
-  getCity() {
+  getLocation() {
     this.api
-      .getCities()
+      .getLocations()
       .then((data) => {
         console.log(data);
-        this.cities = data;
+        this.locations = data;
       })
       .catch((error) => {
         console.log(error);
@@ -275,7 +275,7 @@ export class RestdetailsComponent implements OnInit {
       isClose: false,
       phone: this.phone,
       status: 'open',
-      city: this.city,
+      location: this.location,
       images: [
         this.image1 ? this.image1 : '',
         this.image2 ? this.image2 : '',
@@ -330,8 +330,8 @@ export class RestdetailsComponent implements OnInit {
       this.descritions === '' ||
       this.dishPrice === '' ||
       this.time === '' ||
-      this.city === '' ||
-      !this.city ||
+      this.location === '' ||
+      !this.location ||
       !this.cusine ||
       !this.cusine.length ||
       this.openTime === '' ||
@@ -411,7 +411,7 @@ export class RestdetailsComponent implements OnInit {
                       phone: this.phone,
                       status: 'open',
                       closeTime: this.closeTime,
-                      city: this.city,
+                      location: this.location,
                       images: [
                         this.image1 ? this.image1 : '',
                         this.image2 ? this.image2 : '',

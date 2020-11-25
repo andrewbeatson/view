@@ -78,12 +78,6 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'admin-users',
-        loadChildren: () =>
-          import('./users/users.module').then((m) => m.UsersModule),
-        canActivate: [AuthGuard],
-      },
-      {
         path: 'admin-notification',
         loadChildren: () =>
           import('./notification/notification.module').then(
@@ -118,23 +112,17 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'admin-userdetails',
+        path: 'admin-locations',
         loadChildren: () =>
-          import('./userdetails/userdetails.module').then(
-            (m) => m.UserdetailsModule
+          import('./locations/locations.module').then((m) => m.LocationsModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin-newlocations',
+        loadChildren: () =>
+          import('./newlocations/newlocations.module').then(
+            (m) => m.NewlocationsModule
           ),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin-cities',
-        loadChildren: () =>
-          import('./cities/cities.module').then((m) => m.CitiesModule),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin-newcities',
-        loadChildren: () =>
-          import('./newcities/newcities.module').then((m) => m.NewcitiesModule),
         canActivate: [AuthGuard],
       },
     ],

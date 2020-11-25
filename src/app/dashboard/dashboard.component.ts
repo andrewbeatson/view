@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
       .getVenues()
       .then(
         (data) => {
-          console.log('rest data', data);
           this.rest = data;
         },
         (error) => {
@@ -45,7 +44,6 @@ export class DashboardComponent implements OnInit {
       .getUsers()
       .then(
         (data) => {
-          console.log('users data', data);
           data.forEach((element) => {
             if (element.type === 'user') {
               this.users.push(element);
@@ -79,7 +77,6 @@ export class DashboardComponent implements OnInit {
   }
 
   openOrder(item) {
-    console.log(item);
     const navData: NavigationExtras = {
       queryParams: {
         id: item.id,

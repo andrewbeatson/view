@@ -6,12 +6,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-newcities',
-  templateUrl: './newcities.component.html',
-  styleUrls: ['./newcities.component.css'],
+  selector: 'app-newlocations',
+  templateUrl: './newlocations.component.html',
+  styleUrls: ['./newlocations.component.css'],
 })
-export class NewcitiesComponent implements OnInit {
-  city: any;
+export class NewlocationsComponent implements OnInit {
+  location: any;
   lat: any;
   lng: any;
   address: any;
@@ -25,7 +25,7 @@ export class NewcitiesComponent implements OnInit {
   ngOnInit() {}
   public handleAddressChange(address: Address) {
     console.log(address);
-    this.city = address.name;
+    this.location = address.name;
     this.lat = address.geometry.location.lat();
     this.lng = address.geometry.location.lng();
     console.log('=>', this.lng);
@@ -67,13 +67,13 @@ export class NewcitiesComponent implements OnInit {
   }
 
   create() {
-    if (!this.city || this.city === '' || !this.lat || !this.lng) {
-      this.error('Please select valid city name');
+    if (!this.location || this.location === '' || !this.lat || !this.lng) {
+      this.error('Please select valid location name');
       return false;
     }
     const id = Math.floor(100000000 + Math.random() * 900000000);
     const param = {
-      name: this.city,
+      name: this.location,
       status: 'active',
       id: id.toString(),
       lat: this.lat,
@@ -82,11 +82,11 @@ export class NewcitiesComponent implements OnInit {
     console.log('ok', param, id.toString());
     this.spinner.show();
     this.api
-      .addCity(id.toString(), param)
+      .addLocation(id.toString(), param)
       .then((data) => {
         this.spinner.hide();
         console.log(data);
-        this.api.alerts('Success', 'City Added', 'success');
+        this.api.alerts('Success', 'Location Added', 'success');
         this.navCtrl.back();
       })
       .catch((error) => {

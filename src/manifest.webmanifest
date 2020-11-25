@@ -1,6 +1,6 @@
 {
-  "name": "food-app-admin",
-  "short_name": "food-app-admin",
+  "name": "view",
+  "short_name": "view",
   "theme_color": "#ff384c",
   "background_color": "#fafafa",
   "display": "standalone",
