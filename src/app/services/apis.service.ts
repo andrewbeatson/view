@@ -33,7 +33,6 @@ export class ApisService {
   checkAuth() {
     return new Promise((resolve, reject) => {
       this.fireAuth.auth.onAuthStateChanged((user) => {
-        console.log(user);
         if (user) {
           localStorage.setItem('uid', user.uid);
           resolve(user);
