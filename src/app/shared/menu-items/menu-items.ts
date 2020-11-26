@@ -52,10 +52,10 @@ const MENUITEMS = [
         icon: 'ti-notepad',
       },
       {
-        state: 'admin-drivers',
+        state: 'admin-users',
         name: 'Users',
         type: 'link',
-        icon: 'ti-truck',
+        icon: 'ti-user',
       },
     ],
   },

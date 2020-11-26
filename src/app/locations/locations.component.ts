@@ -11,7 +11,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LocationsComponent implements OnInit {
   locations: any;
-  dummy = Array(50);
   constructor(
     private router: Router,
     private api: ApisService,
@@ -25,13 +24,10 @@ export class LocationsComponent implements OnInit {
     this.api
       .getLocations()
       .then((data) => {
-        console.log(data);
         this.locations = data;
-        this.dummy = [];
       })
       .catch((error) => {
         console.log(error);
-        this.dummy = [];
       });
   }
   createNew() {

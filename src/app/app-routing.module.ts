@@ -72,9 +72,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'admin-drivers',
+        path: 'admin-users',
         loadChildren: () =>
-          import('./drivers/drivers.module').then((m) => m.DriversModule),
+          import('./users/users.module').then((m) => m.UsersModule),
         canActivate: [AuthGuard],
       },
       {
@@ -106,9 +106,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'admin-newdriver',
+        path: 'admin-newuser',
         loadChildren: () =>
-          import('./newdriver/newdriver.module').then((m) => m.NewdriverModule),
+          import('./newuser/newuser.module').then((m) => m.NewuserModule),
         canActivate: [AuthGuard],
       },
       {

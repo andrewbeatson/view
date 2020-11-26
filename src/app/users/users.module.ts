@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DriversRoutingModule } from './drivers-routing.module';
-import { DriversComponent } from './drivers.component';
+import { UsersRoutingModule } from './users-routing.module';
+import { UsersComponent } from './users.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
-  declarations: [DriversComponent],
+  declarations: [UsersComponent],
   imports: [
     CommonModule,
-    DriversRoutingModule,
+    UsersRoutingModule,
     NgxSkeletonLoaderModule,
     NgxSpinnerModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class DriversModule { }
+export class UsersModule {}

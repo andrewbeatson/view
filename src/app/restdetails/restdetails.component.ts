@@ -544,7 +544,7 @@ export class RestdetailsComponent implements OnInit {
       this.spinner.show();
       console.log('ok');
       const file1 = files[0];
-      const storageRef = firebase.storage().ref('drivers' + '/' + file1.name);
+      const storageRef = firebase.storage().ref('users' + '/' + file1.name);
       const task = storageRef.put(file1);
       task.on(
         'state_changed',

@@ -12,7 +12,6 @@ import { NavigationExtras, Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   rest: any[] = [];
   users: any[] = [];
-  drivers: any[] = [];
   dummy = Array(10);
   constructor(private api: ApisService, private router: Router) {
     this.getRest();
@@ -39,7 +38,7 @@ export class DashboardComponent implements OnInit {
 
   getUsers() {
     this.users = [];
-    this.drivers = [];
+    this.users = [];
     this.api
       .getUsers()
       .then(
@@ -48,7 +47,7 @@ export class DashboardComponent implements OnInit {
             if (element.type === 'user') {
               this.users.push(element);
             } else if (element.type === 'delivery') {
-              this.drivers.push(element);
+              this.users.push(element);
             }
           });
         },

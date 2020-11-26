@@ -6,7 +6,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-body">
-        <h5>All Locations</h5>
+        <h5>All Company Wide Locations</h5>
       </div>
 
       <div class="card-body reset-table p-t-0">
@@ -29,54 +29,16 @@
             <thead>
               <tr class="text-uppercase">
                 <th>Name</th>
-                <th>Status</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of dummy">
-                <td>
-                  <ngx-skeleton-loader
-                    count="1"
-                    [theme]="{
-                      'border-radius': '5px',
-                      height: '10px',
-                      border: '1px solid white'
-                    }"
-                  ></ngx-skeleton-loader>
-                </td>
-                <td>
-                  <ngx-skeleton-loader
-                    count="1"
-                    [theme]="{
-                      'border-radius': '5px',
-                      height: '10px',
-                      border: '1px solid white'
-                    }"
-                  ></ngx-skeleton-loader>
-                </td>
-                <td>
-                  <ngx-skeleton-loader
-                    count="1"
-                    [theme]="{
-                      'border-radius': '5px',
-                      height: '10px',
-                      border: '1px solid white'
-                    }"
-                  ></ngx-skeleton-loader>
-                </td>
-              </tr>
               <tr *ngFor="let item of locations; let i = index">
                 <td>{{ item.name }}</td>
-                <td>
-                  <button
-                    type="button"
-                    [className]="getClass(item.status)"
-                    (click)="changeStatus(item)"
-                  >
-                    {{ item.status }}
-                  </button>
-                </td>
+                <td>{{ item.location['latitude'] }}</td>
+                <td>{{ item.location['longitude'] }}</td>
                 <td>
                   <button
                     type="button"

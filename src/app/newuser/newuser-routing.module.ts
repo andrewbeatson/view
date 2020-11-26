@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DriversComponent } from './drivers.component';
+import { NewuserComponent } from './newuser.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DriversComponent,
+    component: NewuserComponent,
     data: {
-      breadcrumb: 'Users',
+      breadcrumb: 'Create new User',
     },
   },
 ];
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DriversRoutingModule {}
+export class NewuserRoutingModule {}

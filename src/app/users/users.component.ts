@@ -5,14 +5,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-drivers',
-  templateUrl: './drivers.component.html',
-  styleUrls: ['./drivers.component.css'],
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css'],
 })
-export class DriversComponent implements OnInit {
-  drivers: any[] = [];
-  dummy = Array(10);
-  dummyDrivers: any[] = [];
+export class UsersComponent implements OnInit {
+  users: any[] = [];
   constructor(
     private api: ApisService,
     private router: Router,
@@ -24,51 +22,39 @@ export class DriversComponent implements OnInit {
   ngOnInit() {}
 
   getUsers() {
-    this.drivers = [];
-    this.dummyDrivers = [];
+    this.users = [];
     this.api
       .getUsers()
       .then(
         (data) => {
-          this.dummy = [];
-          console.log('users data', data);
           data.forEach((element) => {
-            if (element.type === 'delivery') {
-              this.drivers.push(element);
-              this.dummyDrivers.push(element);
+            if (element.type === 'user') {
+              this.users.push(element);
             }
           });
-          console.log(this.drivers);
         },
         (error) => {
-          this.dummy = [];
           console.log(error);
         }
       )
       .catch((error) => {
-        this.dummy = [];
         console.log(error);
       });
   }
 
   search(string) {
     this.resetChanges();
-    console.log('string', string);
-    this.drivers = this.filterItems(string);
+    this.users = this.filterItems(string);
   }
 
-  protected resetChanges = () => {
-    this.drivers = this.dummyDrivers;
-  };
+  protected resetChanges = () => {};
 
   setFilteredItems() {
-    console.log('clear');
-    this.drivers = [];
-    this.drivers = this.dummyDrivers;
+    this.users = [];
   }
 
   filterItems(searchTerm) {
-    return this.drivers.filter((item) => {
+    return this.users.filter((item) => {
       return item.fullname.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
   }
@@ -79,7 +65,7 @@ export class DriversComponent implements OnInit {
         register: true,
       },
     };
-    this.router.navigate(['admin-newdriver'], navData);
+    this.router.navigate(['admin-newuser'], navData);
   }
   getClass(item) {
     if (item === 'active') {
@@ -95,7 +81,7 @@ export class DriversComponent implements OnInit {
     console.log(text);
     Swal.fire({
       title: 'Are you sure?',
-      text: 'To ' + text + ' this driver!',
+      text: 'To ' + text + ' this user!',
       icon: 'question',
       showConfirmButton: true,
       confirmButtonText: 'Yes',
@@ -128,13 +114,13 @@ export class DriversComponent implements OnInit {
       }
     });
   }
-  openDriver(item) {
+  openUser(item) {
     const navData: NavigationExtras = {
       queryParams: {
         id: item.uid,
         register: false,
       },
     };
-    this.router.navigate(['admin-newdriver'], navData);
+    this.router.navigate(['admin-newuser'], navData);
   }
 }

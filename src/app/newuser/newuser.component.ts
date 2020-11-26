@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastData, ToastOptions, ToastyService } from 'ng2-toasty';
+import Swal from 'sweetalert2';
 import * as firebase from 'firebase';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Location } from '@angular/common';
 import { ApisService } from '../services/apis.service';
 @Component({
-  selector: 'app-newdriver',
-  templateUrl: './newdriver.component.html',
-  styleUrls: ['./newdriver.component.css'],
+  selector: 'app-newuser',
+  templateUrl: './newuser.component.html',
+  styleUrls: ['./newuser.component.css'],
 })
-export class NewdriverComponent implements OnInit {
+export class NewuserComponent implements OnInit {
   new: boolean;
   email: any = '';
   firstname: any = '';
@@ -25,7 +25,6 @@ export class NewdriverComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApisService,
-    private toastyService: ToastyService,
     private spinner: NgxSpinnerService,
     private navCtrl: Location
   ) {}
@@ -42,8 +41,10 @@ export class NewdriverComponent implements OnInit {
             this.spinner.hide();
             this.profilePic = data.profilePic;
             this.firstname = data.firstname;
+            this.surname = data.surname;
             this.email = data.email;
             this.phone = data.phone;
+            this.position = data.position;
           })
           .catch((error) => {
             this.spinner.hide();
@@ -53,25 +54,29 @@ export class NewdriverComponent implements OnInit {
   }
 
   error(message) {
-    const toastOptions: ToastOptions = {
-      title: 'Error',
-      msg: message,
-      showClose: true,
-      timeout: 2000,
-      theme: 'default',
-    };
-    this.toastyService.error(toastOptions);
+    Swal.fire({
+      title: 'Error!',
+      text: message,
+      icon: 'error',
+      showConfirmButton: false,
+      showCancelButton: false,
+      backdrop: false,
+      background: 'white',
+      timer: 2000,
+    });
   }
 
   success(message) {
-    const toastOptions: ToastOptions = {
+    Swal.fire({
       title: 'Success',
-      msg: message,
-      showClose: true,
-      timeout: 2000,
-      theme: 'default',
-    };
-    this.toastyService.success(toastOptions);
+      text: message,
+      icon: 'success',
+      showConfirmButton: false,
+      showCancelButton: false,
+      backdrop: false,
+      background: 'white',
+      timer: 2000,
+    });
   }
 
   previewProfilePic(files) {
@@ -87,7 +92,7 @@ export class NewdriverComponent implements OnInit {
     if (this.imageToUpload) {
       this.spinner.show();
       const file1 = files[0];
-      const storageRef = firebase.storage().ref('drivers' + '/' + file1.name);
+      const storageRef = firebase.storage().ref('users' + '/' + file1.name);
       const task = storageRef.put(file1);
       task.on(
         'state_changed',
@@ -189,17 +194,19 @@ export class NewdriverComponent implements OnInit {
   }
 
   update() {
-    if (!this.phone || this.phone === '' || this.firstname === '') {
+    if (this.firstname === '' || this.surname === '' || this.position === '') {
       this.error('All Fields are required');
       return false;
     }
     if (!this.profilePic || this.profilePic === '') {
-      this.error('Please add your cover image');
+      this.error('Please add your profile picture');
       return false;
     }
     const parma = {
       profilePic: this.profilePic,
       firstname: this.firstname,
+      surname: this.surname,
+      position: this.position,
       phone: this.phone,
     };
     this.spinner.show();
@@ -208,7 +215,7 @@ export class NewdriverComponent implements OnInit {
       .then(
         (data) => {
           this.spinner.hide();
-          this.api.alerts('Success', 'Driver updated', 'success');
+          this.api.alerts('Success', 'User updated', 'success');
           this.navCtrl.back();
         },
         (error) => {

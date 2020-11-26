@@ -22,13 +22,33 @@ export class NewlocationsComponent implements OnInit {
     private navCtrl: Location
   ) {}
 
-  ngOnInit() {}
-  public handleAddressChange(address: Address) {
-    console.log(address);
-    this.location = address.name;
-    this.lat = address.geometry.location.lat();
-    this.lng = address.geometry.location.lng();
-    console.log('=>', this.lng);
+  create() {
+    if (!this.location || this.location === '') {
+      this.error('Please select valid location name');
+      return false;
+    }
+    const id = Math.floor(100000000 + Math.random() * 900000000);
+    const param = {
+      name: this.location,
+      status: 'active',
+      id: id.toString(),
+      location: { latitude: this.lat, longitude: this.lng },
+      uuid: '',
+    };
+    this.spinner.show();
+    this.api
+      .addLocation(id.toString(), param)
+      .then((data) => {
+        this.spinner.hide();
+        console.log(data);
+        this.api.alerts('Success', 'Location Added', 'success');
+        this.navCtrl.back();
+      })
+      .catch((error) => {
+        this.spinner.hide();
+        console.log(error);
+        this.error('Something went wrong');
+      });
   }
 
   error(message) {
@@ -48,6 +68,7 @@ export class NewlocationsComponent implements OnInit {
     // Add see all possible types in one shot
     this.toastyService.error(toastOptions);
   }
+
   success(message) {
     const toastOptions: ToastOptions = {
       title: 'Success',
@@ -66,33 +87,5 @@ export class NewlocationsComponent implements OnInit {
     this.toastyService.success(toastOptions);
   }
 
-  create() {
-    if (!this.location || this.location === '' || !this.lat || !this.lng) {
-      this.error('Please select valid location name');
-      return false;
-    }
-    const id = Math.floor(100000000 + Math.random() * 900000000);
-    const param = {
-      name: this.location,
-      status: 'active',
-      id: id.toString(),
-      lat: this.lat,
-      lng: this.lng,
-    };
-    console.log('ok', param, id.toString());
-    this.spinner.show();
-    this.api
-      .addLocation(id.toString(), param)
-      .then((data) => {
-        this.spinner.hide();
-        console.log(data);
-        this.api.alerts('Success', 'Location Added', 'success');
-        this.navCtrl.back();
-      })
-      .catch((error) => {
-        this.spinner.hide();
-        console.log(error);
-        this.error('Something went wrong');
-      });
-  }
+  ngOnInit() {}
 }

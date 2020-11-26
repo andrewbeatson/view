@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 export class AuthInfo {
   constructor(public $uid: string) {}
@@ -27,6 +28,7 @@ export class ApisService {
   constructor(
     private fireAuth: AngularFireAuth,
     private adb: AngularFirestore,
+    private afdb: AngularFireDatabase,
     private http: HttpClient
   ) {}
 
@@ -160,19 +162,18 @@ export class ApisService {
         .createUserWithEmailAndPassword(email, password)
         .then((res) => {
           if (res.user) {
-            this.db.collection('users').doc(res.user.uid).set({
+            this.afdb.object('users/' + res.user.uid).set({
               uid: res.user.uid,
-              email: email,
-              firstname: firstname,
-              surname: surname,
-              profilePic: profilePic,
-              fcm_token: '',
-              phone: phone,
-              position: position,
+              email,
+              firstname,
+              surname,
+              profilePic,
+              phone,
+              position,
               status: 'active',
               type: 'user',
               id: res.user.uid,
-              onlineStatus: 'active',
+              onlineStatus: '',
             });
             resolve(res.user);
           }
@@ -186,7 +187,6 @@ export class ApisService {
 
   logout(): Promise<void> {
     this.authInfo$.next(ApisService.UNKNOWN_USER);
-    // this.db.collection('users').doc(localStorage.getItem('uid')).update({ "fcm_token": firebase.firestore.FieldValue.delete() })
     return this.fireAuth.auth.signOut();
   }
 
